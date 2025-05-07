@@ -1,0 +1,132 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Welcome to Your Recommendation Dashboard</h1>
+
+<!-- Dashboard Overview -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Users</h5>
+                <p class="card-text display-6">{{ stats.user_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-shopping-cart fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Products</h5>
+                <p class="card-text display-6">{{ stats.product_count }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <i class="fas fa-star fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Ratings</h5>
+                <p class="card-text display-6">{{ stats.rating_count }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recommendation Options -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h3 class="mb-4">Choose a Recommendation Method</h3>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm recommendation-card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <i class="fas fa-users text-primary me-2"></i>
+                    User-Based
+                </h4>
+                <p class="card-text">Find products recommended for a specific user based on similar users' preferences.</p>
+                <p><strong>How it works:</strong> This approach identifies users with similar taste patterns and recommends products they've liked that the target user hasn't seen yet.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('user_based') }}" class="btn btn-primary">Try User-Based</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm recommendation-card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <i class="fas fa-tags text-primary me-2"></i>
+                    Item-Based
+                </h4>
+                <p class="card-text">Find products similar to a specific product based on user rating patterns.</p>
+                <p><strong>How it works:</strong> This approach analyzes relationships between products and recommends items that are frequently rated similarly to the selected product.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('item_based') }}" class="btn btn-primary">Try Item-Based</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm recommendation-card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <i class="fas fa-brain text-primary me-2"></i>
+                    Deep Learning
+                </h4>
+                <p class="card-text">Get AI-powered recommendations for a specific user using neural networks.</p>
+                <p><strong>How it works:</strong> This advanced approach uses neural networks to learn complex patterns and latent factors from user-item interactions.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('deep_learning') }}" class="btn btn-primary">Try Deep Learning</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Dataset Statistics -->
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Dataset Overview</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Rating Statistics</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Average Rating
+                                <span class="badge bg-primary rounded-pill">{{ stats.avg_rating }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Ratings per User (avg)
+                                <span class="badge bg-primary rounded-pill">{{ stats.avg_ratings_per_user }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Ratings per Product (avg)
+                                <span class="badge bg-primary rounded-pill">{{ stats.avg_ratings_per_product }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Rating Distribution</h5>
+                        <div class="chart-container">
+                            <canvas id="ratingDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{{ url_for('dataset_stats') }}" class="btn btn-outline-primary">View Detailed Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

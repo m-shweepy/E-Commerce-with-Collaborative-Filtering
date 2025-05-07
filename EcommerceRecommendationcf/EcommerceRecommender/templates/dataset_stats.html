@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}Dataset Statistics - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Dataset Statistics and Insights</h1>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Basic Statistics</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Number of Users</td>
+                            <td><strong>{{ stats.user_count }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Products</td>
+                            <td><strong>{{ stats.product_count }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Number of Ratings</td>
+                            <td><strong>{{ stats.rating_count }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Average Rating</td>
+                            <td><strong>{{ stats.avg_rating }}</strong> out of 5</td>
+                        </tr>
+                        <tr>
+                            <td>Rating Scale</td>
+                            <td><strong>1-5</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Rating Distribution</h4>
+            </div>
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="ratingDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">User Activity</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Average Ratings per User</td>
+                            <td><strong>{{ stats.avg_ratings_per_user }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Ratings per User</td>
+                            <td><strong>{{ stats.min_ratings_per_user }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Maximum Ratings per User</td>
+                            <td><strong>{{ stats.max_ratings_per_user }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Most users rate only a small fraction of all available products, which is typical for e-commerce datasets. This is known as the "sparsity problem" in recommendation systems.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Product Popularity</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Average Ratings per Product</td>
+                            <td><strong>{{ stats.avg_ratings_per_product }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Ratings per Product</td>
+                            <td><strong>{{ stats.min_ratings_per_product }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Maximum Ratings per Product</td>
+                            <td><strong>{{ stats.max_ratings_per_product }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    The distribution of ratings across products often follows a power law, with a small number of popular products receiving many ratings, while most products receive very few ratings.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h4 class="mb-0">Implications for Recommendations</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>User-Based CF</h5>
+                <p>With {{ stats.user_count }} users in the dataset, finding similar users becomes challenging due to the sparsity of ratings. User-based CF works best when there are many users with overlapping ratings.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Item-Based CF</h5>
+                <p>With {{ stats.product_count }} products, item-based CF focuses on product-product relationships. This method is often more stable than user-based CF and less affected by new users joining the system.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Deep Learning</h5>
+                <p>Neural networks can learn from the {{ stats.rating_count }} total interactions to model complex patterns that traditional methods might miss, potentially providing better recommendations for users with few ratings.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

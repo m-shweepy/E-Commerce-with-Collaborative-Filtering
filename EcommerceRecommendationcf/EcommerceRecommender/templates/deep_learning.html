@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Deep Learning Recommendations - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Deep Learning Collaborative Filtering</h1>
+
+<div class="card explanation-card">
+    <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>How Deep Learning Collaborative Filtering Works</h5>
+        <p class="card-text">
+            Deep learning approaches to collaborative filtering use neural networks to model complex interactions between users and items.
+            The model used here follows these principles:
+        </p>
+        <ol>
+            <li>Learn embeddings for users and items (low-dimensional representations in a latent space)</li>
+            <li>Process these embeddings through neural network layers to capture non-linear interactions</li>
+            <li>Predict ratings for user-item pairs not yet seen</li>
+            <li>Recommend items with the highest predicted ratings</li>
+        </ol>
+        <p>
+            Neural networks can capture more complex patterns than traditional collaborative filtering methods, potentially leading to better recommendations.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-container">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Get Deep Learning Recommendations</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('deep_learning') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">Enter a User ID</label>
+                        <div class="input-group">
+                            {{ form.user_id(class="form-control", id="user_id", placeholder="e.g., A1Z59RFKN0M5QL") }}
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                        {% if form.user_id.errors %}
+                            <div class="text-danger">
+                                {% for error in form.user_id.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </form>
+                
+                <!-- Sample User IDs -->
+                <div class="mt-3">
+                    <small class="text-muted">Try one of these User IDs:</small>
+                    <div class="mt-2">
+                        {% for user_id in sample_user_ids %}
+                            <span class="sample-id dl-sample-user-id">{{ user_id }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Generating AI recommendations...</p>
+        </div>
+        
+        {% if recommendations %}
+            <h3 class="mb-3">Top 5 Recommendations</h3>
+            {% for item in recommendations %}
+                <div class="card mb-3 recommendation-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Product ID: {{ item.product_id }}</h5>
+                            <span class="badge bg-primary badge-rating">Rating: {{ item.predicted_rating }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif form.user_id.data and user_exists %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle me-2"></i> No recommendations found for this user. Try a different User ID.
+            </div>
+        {% elif form.user_id.data %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i> User ID not found in the dataset. Please try one of the sample IDs.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

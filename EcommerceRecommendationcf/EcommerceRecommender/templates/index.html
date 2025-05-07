@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">E-Commerce Recommendation System</h1>
+        <p class="lead mb-4">Discover products you'll love with our advanced collaborative filtering recommendation engine</p>
+        {% if not current_user.is_authenticated %}
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-secondary btn-lg px-4">Register</a>
+        </div>
+        {% else %}
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-lg px-4 gap-3">Go to Dashboard</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Our Recommendation Approaches</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon text-primary">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="card-title">User-Based</h3>
+                        <p class="card-text">Recommends products based on what similar users have liked. This approach finds users with similar tastes and suggests items they've rated highly.</p>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('user_based') }}" class="btn btn-outline-primary mt-3">Try It</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon text-primary">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3 class="card-title">Item-Based</h3>
+                        <p class="card-text">Recommends products similar to those you already like. This approach analyzes relationships between products based on user rating patterns.</p>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('item_based') }}" class="btn btn-outline-primary mt-3">Try It</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon text-primary">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="card-title">Deep Learning</h3>
+                        <p class="card-text">Uses neural networks to discover complex patterns in user-item interactions and generate highly personalized recommendations.</p>
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('deep_learning') }}" class="btn btn-outline-primary mt-3">Try It</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-5 bg-dark rounded">
+    <div class="container">
+        <h2 class="text-center mb-5">How It Works</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3>Collaborative Filtering</h3>
+                <p>Our system uses collaborative filtering, a technique that makes recommendations based on the preferences and behaviors of similar users. By analyzing patterns in user ratings, we can predict which products you might enjoy.</p>
+                <h4 class="mt-4">Key Features:</h4>
+                <ul>
+                    <li>Three different recommendation approaches</li>
+                    <li>Real-time product recommendations</li>
+                    <li>Detailed dataset statistics and insights</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <div class="text-center p-4">
+                            <i class="fas fa-cogs fa-5x mb-3 text-primary"></i>
+                            <h4 class="mb-3">Recommendation Engine</h4>
+                            <p>Our recommendation engine processes user ratings and product data to generate personalized recommendations using advanced algorithms.</p>
+                            {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3">Explore Dashboard</a>
+                            {% else %}
+                            <a href="{{ url_for('login') }}" class="btn btn-primary mt-3">Get Started</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 text-center">
+    <div class="container">
+        <h2 class="mb-4">Ready to discover new products?</h2>
+        <p class="lead mb-4">Sign up now to explore our recommendation system and find products tailored to your preferences.</p>
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('register') }}" class="btn btn-lg btn-primary">Create an Account</a>
+        {% else %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-lg btn-primary">Go to Dashboard</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

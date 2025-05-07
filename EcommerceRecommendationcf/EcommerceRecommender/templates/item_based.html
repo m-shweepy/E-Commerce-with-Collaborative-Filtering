@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Item-Based Recommendations - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Item-Based Collaborative Filtering</h1>
+
+<div class="card explanation-card">
+    <div class="card-body">
+        <h5 class="card-title"><i class="fas fa-info-circle me-2"></i>How Item-Based Collaborative Filtering Works</h5>
+        <p class="card-text">
+            Item-based collaborative filtering recommends products similar to those a user has liked in the past.
+            The algorithm follows these steps:
+        </p>
+        <ol>
+            <li>Calculate similarity between items based on user rating patterns</li>
+            <li>For a given product, find the most similar products</li>
+            <li>Recommend the most similar items that have high similarity scores</li>
+        </ol>
+        <p>
+            This approach is particularly useful for product detail pages ("Customers who bought this also bought...").
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 form-container">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Get Item-Based Recommendations</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('item_based') }}">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">Enter a Product ID</label>
+                        <div class="input-group">
+                            {{ form.product_id(class="form-control", id="product_id", placeholder="e.g., B000052YJH") }}
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                        {% if form.product_id.errors %}
+                            <div class="text-danger">
+                                {% for error in form.product_id.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </form>
+                
+                <!-- Sample Product IDs -->
+                <div class="mt-3">
+                    <small class="text-muted">Try one of these Product IDs:</small>
+                    <div class="mt-2">
+                        {% for product_id in sample_product_ids %}
+                            <span class="sample-id sample-product-id">{{ product_id }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Finding similar products...</p>
+        </div>
+        
+        {% if recommendations %}
+            <h3 class="mb-3">Similar Products</h3>
+            {% for item in recommendations %}
+                <div class="card mb-3 recommendation-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Product ID: {{ item.product_id }}</h5>
+                            <span class="badge bg-primary badge-rating">Similarity: {{ item.similarity_score }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% elif form.product_id.data and item_exists %}
+            <div class="alert alert-info" role="alert">
+                <i class="fas fa-info-circle me-2"></i> No similar products found. Try a different Product ID.
+            </div>
+        {% elif form.product_id.data %}
+            <div class="alert alert-danger" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i> Product ID not found in the dataset. Please try one of the sample IDs.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

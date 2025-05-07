@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% block title %}About - E-Commerce Recommender System{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">About the Recommendation System</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h2>Project Overview</h2>
+        <p>
+            This e-commerce recommendation system demonstrates three different approaches to collaborative filtering:
+            user-based, item-based, and deep learning-based. The system allows users to explore and compare these
+            recommendation techniques using a real-world e-commerce dataset.
+        </p>
+        <p>
+            The application is built with Flask, a lightweight Python web framework, and utilizes various data science
+            libraries for implementing the recommendation algorithms.
+        </p>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3 class="mb-0">Dataset Information</h3>
+            </div>
+            <div class="card-body">
+                <p>
+                    The system uses a dataset containing user ratings for products. Each rating record includes:
+                </p>
+                <ul>
+                    <li><strong>UserId</strong>: A unique identifier for each user</li>
+                    <li><strong>ProductId</strong>: A unique identifier for each product</li>
+                    <li><strong>Rating</strong>: A numerical rating (1-5) given by the user to the product</li>
+                    <li><strong>Timestamp</strong>: When the rating was given</li>
+                </ul>
+                <p>
+                    This dataset structure is common in recommendation systems research and represents the core information
+                    needed for collaborative filtering.
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h3 class="mb-0">Technologies Used</h3>
+            </div>
+            <div class="card-body">
+                <h5>Backend</h5>
+                <ul>
+                    <li>Flask (Web Framework)</li>
+                    <li>SQLAlchemy (Database ORM)</li>
+                    <li>NumPy & Pandas (Data Processing)</li>
+                    <li>SciPy (Scientific Computing)</li>
+                    <li>Scikit-learn (Traditional Collaborative Filtering)</li>
+                    <li>TensorFlow/Keras (Deep Learning Model)</li>
+                </ul>
+                
+                <h5>Frontend</h5>
+                <ul>
+                    <li>HTML5 & CSS3</li>
+                    <li>Bootstrap 5 (UI Framework)</li>
+                    <li>JavaScript (Client-side Functionality)</li>
+                    <li>Chart.js (Data Visualization)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Recommendation Approaches</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card h-100 bg-dark">
+                            <div class="card-body">
+                                <h4 class="card-title">User-Based Collaborative Filtering</h4>
+                                <hr>
+                                <p class="card-text">
+                                    This approach finds users with similar tastes and recommends products they liked that the target user hasn't seen yet.
+                                </p>
+                                <h5>Algorithm:</h5>
+                                <ol>
+                                    <li>Calculate user-user similarity (cosine similarity)</li>
+                                    <li>Find the most similar users to the target user</li>
+                                    <li>Identify products these similar users rated highly</li>
+                                    <li>Filter out products the target user has already rated</li>
+                                    <li>Calculate predicted ratings for remaining products</li>
+                                    <li>Recommend products with the highest predicted ratings</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100 bg-dark">
+                            <div class="card-body">
+                                <h4 class="card-title">Item-Based Collaborative Filtering</h4>
+                                <hr>
+                                <p class="card-text">
+                                    This approach identifies relationships between products based on user rating patterns and recommends similar products.
+                                </p>
+                                <h5>Algorithm:</h5>
+                                <ol>
+                                    <li>Calculate item-item similarity (cosine similarity)</li>
+                                    <li>For a given product, find the most similar items</li>
+                                    <li>Sort by similarity score</li>
+                                    <li>Recommend the top-N most similar products</li>
+                                </ol>
+                                <p>
+                                    This method is often used in "Customers who bought this also bought..." features on e-commerce sites.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card h-100 bg-dark">
+                            <div class="card-body">
+                                <h4 class="card-title">Deep Learning Collaborative Filtering</h4>
+                                <hr>
+                                <p class="card-text">
+                                    This approach uses neural networks to learn latent factors and complex patterns in user-item interactions.
+                                </p>
+                                <h5>Model Architecture:</h5>
+                                <ol>
+                                    <li>Embedding layers for users and items</li>
+                                    <li>Concatenation of embeddings</li>
+                                    <li>Dense neural network layers</li>
+                                    <li>Output layer predicting ratings</li>
+                                </ol>
+                                <p>
+                                    Deep learning models can capture non-linear relationships and provide more nuanced recommendations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h3 class="mb-0">Evaluation and Challenges</h3>
+    </div>
+    <div class="card-body">
+        <h4>Common Challenges in Recommendation Systems</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <strong>Cold Start Problem</strong>: Difficulty making recommendations for new users or items with few or no ratings.
+                    </li>
+                    <li>
+                        <strong>Sparsity</strong>: Most users rate only a tiny fraction of all available items, leading to sparse data.
+                    </li>
+                    <li>
+                        <strong>Scalability</strong>: As the number of users and items grows, computational requirements increase significantly.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <strong>Popularity Bias</strong>: Popular items tend to be recommended more frequently, potentially creating a feedback loop.
+                    </li>
+                    <li>
+                        <strong>Diversity</strong>: Ensuring recommendations are diverse and not just variations of the same item.
+                    </li>
+                    <li>
+                        <strong>Explainability</strong>: Making recommendations that users can understand why they were recommended.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <h4 class="mt-4">Evaluation Metrics</h4>
+        <p>
+            Recommendation systems are typically evaluated using metrics such as:
+        </p>
+        <ul>
+            <li><strong>RMSE (Root Mean Square Error)</strong>: Measures the accuracy of predicted ratings</li>
+            <li><strong>Precision and Recall</strong>: Assess the relevance of recommendations</li>
+            <li><strong>MAE (Mean Absolute Error)</strong>: Another measure of prediction accuracy</li>
+            <li><strong>MAP (Mean Average Precision)</strong>: Evaluates the ranking of recommendations</li>
+            <li><strong>Diversity and Coverage</strong>: How varied the recommendations are and what proportion of items get recommended</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

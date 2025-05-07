@@ -1,0 +1,84 @@
+/* Additional custom styles */
+.recommendation-card {
+    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.stats-card {
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: scale(1.02);
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.sample-id {
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.sample-id:hover {
+    background-color: var(--bs-primary);
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 2rem;
+}
+
+.hero-section {
+    padding: 4rem 0;
+    background-color: rgba(33, 37, 41, 0.03);
+    border-radius: 0.5rem;
+    margin-bottom: 3rem;
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--bs-primary);
+}
+
+.badge-rating {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.explanation-card {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.alert-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
