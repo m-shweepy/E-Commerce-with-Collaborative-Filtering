@@ -18,3 +18,30 @@ A Flask-based web application that recommends products using collaborative filte
 - HTML/CSS
 
 ## 📁 Project Structure
+EcommerceRecommender/
+├── app.py
+├── recommenders.py
+├── templates/
+│ └── index.html
+├── static/
+├── data/
+│ └── sample_ratings.csv
+
+
+## ▶️ How to Run
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+python app.py
+```
+Visit http://localhost:5000 to try it out.
+
+
+## 📌 Author
+Alex Gonsalves
+
+www.linkedin.com/in/alex-gonsalves-379487214 • https://github.com/m-shweepy/E-Commerce-with-Collaborative-Filtering
+
+
